@@ -1,4 +1,6 @@
+Funcionalidades.txt
+.gitignore
 .vscode/
 teste.dSYM/
 teste
-.gitignore
+*.exe

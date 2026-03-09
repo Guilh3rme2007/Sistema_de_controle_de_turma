@@ -7,18 +7,18 @@
 /*
 Escreva um programa que solicite ao usuário Nome, Sexo, Idade e as três notas dos N alunos em uma turma,
 e ao final apresente:
-1) Quantidade de alunos cadastrados na turma;
+1) Quantidade de alunos cadastrados na turma; Ok
 2) Quantidade de alunos e alunas (%) aprovados / reprovados na turma;
 3) Media de idade dos alunos aprovados / reprovados
 4) Gerar relatorio de alunos aprovados / reprovados 
 5) Tornar configuravel:
- - A média de aprovação
- - A quantidade de provas a serem realizadas pelo aluno 
+ - A média de aprovação Ok
+ - A quantidade de provas a serem realizadas pelo aluno Ok
 6) Fazer tratamento de dados na entrada do usuario (notas, idades, media, sexo)
- - 0 < Nota < 10
- - 16 < idade < 100
- - 4.5 < media < 8
- - sexo somente M/m/F/f
+ - 0 < Nota < 10 OK
+ - 16 < idade < 100 OK
+ - 4.5 < media < 8 OK
+ - sexo somente M/m/F/f OK
 */
 
 // Estrutura de dados
@@ -49,10 +49,20 @@ int main() {
 
     for(int i=1; i<= QtdAlunos; i++ ) {
         Media = 0;
+
         printf("Informe o nome do %i aluno: ", i);
         scanf("%s", Alunos[i].Nome);
-        printf("Informe a idade de %s: ", Alunos[i].Nome);
-        scanf("%i", &Alunos[i].Idade);
+
+        do { //tratamento de dados para idade do aluno
+            printf("Informe a idade de %s: ", Alunos[i].Nome);
+            scanf("%i", &Alunos[i].Idade);
+
+            if (Alunos[i].Idade < 16 or Alunos[i].Idade > 100) {
+                printf("Idade inválida! Por favor, informe novamente com uma idade entre 16 e 100.\n");
+            }
+            
+        } while (Alunos[i].Idade < 16 or Alunos[i].Idade > 100);
+        
         do { //tratamento de dados para sexo do aluno
             printf("Informe o Sexo de %s (M - masculino, F - feminino): ", Alunos[i].Nome);
             scanf("%s", &Alunos[i].Sexo);
@@ -65,15 +75,28 @@ int main() {
         }
         
         for (int f=0; f<QtdProvas; f++ ){ 
-            printf("Informe as notas de %s: ", Alunos[i].Nome);
-            scanf("%f", &Alunos[i].Notas[f]);
+            do {
+                printf("Informe as notas de %s: ", Alunos[i].Nome);
+                scanf("%f", &Alunos[i].Notas[f]);
+
+                if (Alunos[i].Notas[f] < 0 or Alunos[i].Notas[f] > 10) {
+                    printf("Nota inválida! Por favor, informe novamente com uma nota entre 0 e 10.\n");
+                }              
+
+            } while (Alunos[i].Notas[f] < 0 or Alunos[i].Notas[f] > 10);
 
             Media = Media + Alunos[i].Notas[f];
         }
         Media = Media/ QtdProvas;
+
         do { //tratamento de dados para média de aprovação
             printf("Informe a média mínima para aprovação: ");
             scanf("%f", &MdAprovacao);
+
+                if (MdAprovacao < 4.5 or MdAprovacao > 8) {
+                    printf("Média de aprovação inválida! Por favor, informe novamente com uma média entre 4.5 e 8.\n");
+                }
+
         } while (Media<4.5 or Media>8);
     
         Alunos[i].Aprovado = Media >= MdAprovacao;
