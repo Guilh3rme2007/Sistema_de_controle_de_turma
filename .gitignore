@@ -1,3 +1,4 @@
-.vscode
-teste.dSYM
+.vscode/
+teste.dSYM/
 teste
+.gitignore
